@@ -1,4 +1,4 @@
-# PythonReverseShell
+# Python3-ReverseShell
 Hacker Sploit Ethical Hacker bootcamp Python Reverse Shell I updated to work with Python3
 
 Start by changing the port and IP values in the scripts on line 40 of server.py and 39 of reverse.py.
