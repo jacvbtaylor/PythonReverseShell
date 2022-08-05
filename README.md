@@ -7,4 +7,4 @@ Execute server.py on the attack machine followed by reverse.py on the target mac
 
 Updates will need to be made further to have specfic commands run on the target machine. 
 
-You may need to bring stop firewalld or other programs potentially stopping the connection. 
+You may need to  stop firewalld or other services potentially stopping the connection. 
