@@ -7,6 +7,12 @@
 import socket
 import json
 import os
+import colorama 
+from colorama import Fore, Back
+colorama.init(autoreset=True)
+
+
+os.system('cls')
 
 def reliable_send(data):
 	json_data = json.dumps(data).encode()
@@ -23,7 +29,7 @@ def reliable_recv():
 
 def shell():
 	while True:
-		command = input("* Shell#~%s: " % str(ip)) # %s  is the IP to be attached to this string
+		command = input(Fore.YELLOW + "* Shell#~%s: " % str(ip) + Fore.GREEN) # %s  is the IP to be attached to this string
 		reliable_send(command)
 		if command == "q":
                 	break
@@ -35,12 +41,12 @@ def shell():
 		elif command == "id":
 			try:
 				user = os.getlogin()
-				print(user)
+				print(Fore.RED + user)
 			except:
 				continue
 		else:
 				result = reliable_recv()
-				print (result)
+				print (Back.BLUE,result)
 
 def server ():
 	global s
