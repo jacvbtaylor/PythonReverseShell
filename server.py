@@ -11,9 +11,6 @@ import colorama
 from colorama import Fore, Back
 colorama.init(autoreset=True)
 
-
-os.system('cls')
-
 def reliable_send(data):
 	json_data = json.dumps(data).encode()
 	target.send(json_data)
